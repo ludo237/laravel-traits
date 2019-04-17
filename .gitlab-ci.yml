@@ -1,0 +1,63 @@
+image: 6gosrl/docker-php-gitlab-ci
+
+# Setup common stages
+stages:
+  - build
+  - test
+
+# Init the test suite
+.prepare_test_env: &prepare_test_env |
+  php artisan optimize:clear
+  php artisan storage:link
+  mkdir -p ./reports
+
+# Start by creating the vendor folder for the stages
+install_vendors:
+  stage: build
+  environment:
+    name: building
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - vendor/
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-install
+    paths:
+      - vendor/
+      - .phpunit.result.cache
+      - .composer-cache/
+  script:
+    - composer config -g cache-dir "$(pwd)/.composer-cache"
+    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts -o
+
+# Check Code Style
+codestyle:
+  stage: test
+  environment:
+    name: testing
+  artifacts:
+    paths:
+      - reports
+    expire_in: 1 day
+    when: on_failure
+  dependencies:
+    - install_vendors
+  script:
+    - mkdir -p reports
+    - phpcs --standard=PSR2 --extensions=php --report=full --report-file=./reports/$CI_COMMIT_SHA.txt -v src
+
+# Testing time
+unit:
+  stage: test
+  environment:
+    name: testing
+  artifacts:
+    paths:
+      - reports
+    expire_in: 1 day
+    when: on_failure
+  dependencies:
+    - install_vendors
+  script:
+    - *prepare_test_env
+    - ./vendor/bin/phpunit --colors=never
