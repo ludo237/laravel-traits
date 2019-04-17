@@ -24,4 +24,16 @@ If you want to contribute but do not know where to start, this kist provides som
 
 - **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash them](https://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting.
 
+## Set up the environment
+
+We leverage Docker to make the process easy as possible. In particular we use [Laradock](https://laradock.io/)
+to create the development environment in few minutes:
+
+- Clone Laradock submodule
+- Copy `.laradock.env` inside `laradadock/.env` 
+- Change the directory in Laradock
+- Type `docker-compose up -d --build workspace` that's the only container you need
+- Once the container is created you can interact with it like a normal docker container
+- When you are done, inside Laradock directory, type `docker-compose down` and `docker-compose rm`
+
 ## Happy Coding!
