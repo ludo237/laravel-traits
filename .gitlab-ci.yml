@@ -5,12 +5,6 @@ stages:
   - build
   - test
 
-# Init the test suite
-.prepare_test_env: &prepare_test_env |
-  php artisan optimize:clear
-  php artisan storage:link
-  mkdir -p ./reports
-
 # Start by creating the vendor folder for the stages
 install_vendors:
   stage: build
@@ -59,5 +53,5 @@ unit:
   dependencies:
     - install_vendors
   script:
-    - *prepare_test_env
+    - mkdir -p ./reports
     - ./vendor/bin/phpunit --colors=never
