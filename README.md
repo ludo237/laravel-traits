@@ -1,3 +1,6 @@
+[![pipeline status](https://gitlab.com/ludo237/laravel-eloquent-traits/badges/master/pipeline.svg)](https://gitlab.com/ludo237/laravel-eloquent-traits/commits/master)
+[![coverage report](https://gitlab.com/ludo237/laravel-eloquent-traits/badges/master/coverage.svg)](https://gitlab.com/ludo237/laravel-eloquent-traits/commits/master)
+
 # Laravel Eloquent Traits
 
 A set of useful traits for Eloquent ORM.
