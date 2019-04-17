@@ -1,0 +1,50 @@
+{
+    "name": "ludo237/laravel-eloquent-traits",
+    "description": "Useful set of Eloquent traits",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Claudio Ludovico",
+            "email": "ludo237@outlook.com"
+        }
+    ],
+    "homepage": "https://gitlab.com/ludo237/eloquent-traits",
+    "keywords": [
+        "laravel",
+        "eloquent",
+        "orm",
+        "active-record",
+        "laravel-package",
+        "open-source"
+    ],
+    "require": {
+        "php": "^7.2",
+        "illuminate/support": "5.6.x|5.7.x|5.8.x"
+    },
+    "require-dev": {
+        "laravel/framework": "5.6.x|5.7.x|5.8.x",
+        "mockery/mockery": "^1.0",
+        "phpunit/phpunit": "^7.3|^8.0",
+        "orchestra/testbench": "^3.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ludo237\\EloquentTraits\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ludo237\\EloquentTraits\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "stable",
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    }
+}
