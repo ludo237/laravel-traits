@@ -14,4 +14,6 @@ use Ludo237\EloquentTraits\HasUuid;
 class User extends Model
 {
     use ExposeTableProperties, HasSlug, HasUuid;
+    
+    protected $fillable = ["name", "slug", "uuid"];
 }
