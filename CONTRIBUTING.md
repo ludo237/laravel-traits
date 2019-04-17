@@ -2,7 +2,7 @@
 
 Contributions are welcome and will be fully credited.
 
-Contributins are accepted via Merge Requests on [the official repository on Gitlab](https://gitlab.com/ludo237/laravel-eoquent-traits)
+Contributing are accepted via Merge Requests on [the official repository on Gitlab](https://gitlab.com/ludo237/laravel-eoquent-traits)
 
 ## Things you could do
 
