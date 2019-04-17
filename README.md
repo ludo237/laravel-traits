@@ -1,4 +1,3 @@
-
 # Laravel Eloquent Traits
 
 A set of useful traits for Eloquent ORM.
