@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/|version|/phpunit.xsd"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         bootstrap="vendor/autoload.php"
+         cacheResult="true"
+         cacheTokens="false"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         forceCoversAnnotation="false"
+         processIsolation="false"
+         stopOnFailure="true"
+         stopOnError="true"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         stopOnRisky="false"
+         verbose="false">
+    <testsuites>
+        <testsuite name="Package">
+            <directory suffix=".php">./tests/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory>config/</directory>
+            <directory>src/</directory>
+        </whitelist>
+    </filter>
+     <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="APP_KEY" value="base64:M5dHmJ47cVdOmhwED1Wxbpp2vR9QZiAphaOd1MhrGqo="/>
+    </php>
+</phpunit>
