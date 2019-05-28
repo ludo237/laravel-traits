@@ -29,7 +29,9 @@ If you want to contribute but do not know where to start, this kist provides som
 We leverage Docker to make the process easy as possible. In particular we use [Laradock](https://laradock.io/)
 to create the development environment in few minutes:
 
-- Clone Laradock submodule
+- Clone Laradock submodule:
+    - First Time: `git submodule update --init --recursive`
+    - Update:  `git submodule update --recursive --remote`
 - Copy `.laradock.env` inside `laradadock/.env` 
 - Change the directory in Laradock
 - Type `docker-compose up -d --build workspace` that's the only container you need
