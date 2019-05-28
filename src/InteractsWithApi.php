@@ -16,7 +16,7 @@ trait InteractsWithApi
      *
      * @return string
      */
-    protected static function apiField() : string
+    public static function apiField() : string
     {
         return "api_key";
     }
@@ -26,7 +26,7 @@ trait InteractsWithApi
      *
      * @see \Illuminate\Database\Eloquent\Model::bootTraits()
      */
-    protected static function bootInteractsWithApi() : void
+    public static function bootInteractsWithApi() : void
     {
         static::created(function (Model $model) {
             $model->update([
