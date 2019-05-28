@@ -33,6 +33,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertEquals([
             "id",
             "uuid",
+            "api_key",
             "slug",
             "name",
             "created_at",

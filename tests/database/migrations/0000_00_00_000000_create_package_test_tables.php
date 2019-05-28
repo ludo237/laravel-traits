@@ -19,6 +19,7 @@ class CreatePackageTestTables extends Migration
         Schema::create("users", function (Blueprint $table) {
             $table->bigIncrements("id");
             $table->uuid("uuid");
+            $table->string("api_key")->nullable();
             $table->string("slug")->unique();
             $table->string("name");
             $table->timestamps();

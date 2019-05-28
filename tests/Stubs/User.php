@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Ludo237\EloquentTraits\ExposeTableProperties;
 use Ludo237\EloquentTraits\HasSlug;
 use Ludo237\EloquentTraits\HasUuid;
+use Ludo237\EloquentTraits\InteractsWithApi;
 
 /**
  * Class User
@@ -13,7 +14,7 @@ use Ludo237\EloquentTraits\HasUuid;
  */
 class User extends Model
 {
-    use ExposeTableProperties, HasSlug, HasUuid;
+    use ExposeTableProperties, InteractsWithApi, HasSlug, HasUuid;
     
-    protected $fillable = ["name", "slug", "uuid"];
+    protected $fillable = ["name", "slug", "api_key", "uuid"];
 }
