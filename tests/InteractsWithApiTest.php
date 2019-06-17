@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Entities\Traits;
+namespace Ludo237\EloquentTraits\Tests;
 
 use Ludo237\EloquentTraits\Tests\Stubs\User;
 use Ludo237\EloquentTraits\Tests\TestCase;
@@ -8,7 +8,7 @@ use Ludo237\EloquentTraits\Tests\TestCase;
 /**
  * Class InteractsWithApiTest
  * @group EntitiesTrait
- * @package Tests\Unit\Entities\Traits
+ * @package Ludo237\EloquentTraits\Tests
  */
 class InteractsWithApiTest extends TestCase
 {
