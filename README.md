@@ -29,7 +29,7 @@ With time things can change, but for v1.x the basic traits will be:
 
 ## What to come
 
-- `OwnedByUser` this is a bit tricky, basically if you use this Trait the eloquent model will automatically be bound to an User model *still WIP*
+Check this repository tags for new additions.
 
 ## How to Contribute
 

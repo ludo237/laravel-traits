@@ -2,6 +2,7 @@
 
 namespace Ludo237\EloquentTraits\Tests;
 
+use Illuminate\Support\Facades\Date;
 use Ludo237\EloquentTraits\Bannable;
 use Ludo237\EloquentTraits\Tests\Stubs\User;
 
