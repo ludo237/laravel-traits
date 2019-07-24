@@ -56,7 +56,7 @@ class BannableTest extends TestCase
      */
     public function it_returns_if_an_entity_is_still_banned_up_until_today()
     {
-        user = User::create([
+        $user = User::create([
             "name" => "foo",
             "banned_at" => Date::today(),
         ]);
@@ -77,7 +77,7 @@ class BannableTest extends TestCase
      */
     public function it_returns_if_an_entity_has_an_expired_ban()
     {
-        user = User::create([
+        $user = User::create([
             "name" => "foo",
             "banned_at" => Date::today(),
         ]);
