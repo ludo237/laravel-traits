@@ -3,7 +3,6 @@
 namespace Ludo237\EloquentTraits\Tests;
 
 use Illuminate\Support\Facades\Date;
-use Ludo237\EloquentTraits\Bannable;
 use Ludo237\EloquentTraits\Tests\Stubs\User;
 
 /**
@@ -40,7 +39,7 @@ class BannableTest extends TestCase
      * @covers \Ludo237\EloquentTraits\Bannable::isBanned
      * @covers \Ludo237\EloquentTraits\Bannable::isNotBanned
      */
-    public function it_returns_if_an_entity_is_banned()
+    public function it_returns_true_if_an_entity_is_banned()
     {
         $user = User::create([
             "name" => "foo",
@@ -55,7 +54,7 @@ class BannableTest extends TestCase
      * @test
      * @covers \Ludo237\EloquentTraits\Bannable::isStillBanned
      */
-    public function it_returns_if_an_entity_is_still_banned_up_until_today()
+    public function it_returns_true_if_an_entity_is_still_banned_up_until_today()
     {
         $user = User::create([
             "name" => "foo",
@@ -76,7 +75,7 @@ class BannableTest extends TestCase
      * @test
      * @covers \Ludo237\EloquentTraits\Bannable::hasExpiredBan
      */
-    public function it_returns_if_an_entity_has_an_expired_ban()
+    public function it_returns_true_if_an_entity_has_an_expired_ban()
     {
         $user = User::create([
             "name" => "foo",

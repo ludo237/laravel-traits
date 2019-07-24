@@ -36,6 +36,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
             "api_key",
             "slug",
             "name",
+            "banned_at",
             "created_at",
             "updated_at",
         ], $columns);
