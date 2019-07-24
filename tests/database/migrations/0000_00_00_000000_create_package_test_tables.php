@@ -22,6 +22,7 @@ class CreatePackageTestTables extends Migration
             $table->string("api_key")->nullable();
             $table->string("slug")->unique();
             $table->string("name");
+            $table->dateTime("banned_at")->nullable()->default(null);
             $table->timestamps();
         });
     }
