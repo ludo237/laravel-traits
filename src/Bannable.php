@@ -63,7 +63,7 @@ trait Bannable
      */
     public function isStillBanned() : bool
     {
-        return Date::today()->lessThan(
+        return Date::today()->lessThanOrEqualTo(
             $this->{self::banField()}
         );
     }
@@ -88,7 +88,9 @@ trait Bannable
      */
     public function banFor(Carbon $banDate) : void
     {
-        $this->ban($banDate);
+        $this->update([
+            self::banField() => $banDate,
+        ]);
     }
     
     /**
