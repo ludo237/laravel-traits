@@ -5,7 +5,7 @@
   "authors": [
     {
       "name": "Claudio Ludovico",
-      "email": "ludo237@outlook.com"
+      "email": "ludovico1990@hotmail.it"
     }
   ],
   "homepage": "https://gitlab.com/ludo237/laravel-eloquent-traits",
@@ -19,7 +19,7 @@
   ],
   "require": {
     "php": "^7.2",
-    "illuminate/support": "5.6.x|5.7.x|5.8.x"
+    "illuminate/support": "5.6.x|5.7.x|5.8.x|6.x"
   },
   "require-dev": {
     "fzaninotto/faker": "^1.4",
