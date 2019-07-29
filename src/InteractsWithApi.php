@@ -22,7 +22,7 @@ trait InteractsWithApi
     }
     
     /**
-     * Automagically boot this trait thanks to eloquent
+     * Automatically boot this trait thanks to eloquent
      *
      * @see \Illuminate\Database\Eloquent\Model::bootTraits()
      */

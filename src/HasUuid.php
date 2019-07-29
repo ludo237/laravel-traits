@@ -37,6 +37,10 @@ trait HasUuid
     }
     
     /**
+     * Get only the first chunk of the UUID, useful for another layer 
+     * of masking. NOT SUITABLE FOR FETCHING DATA.
+     * You should use this only to display a short version of the UUID
+     *
      * @return string
      */
     public function getShortUuidAttribute() : string
