@@ -15,7 +15,7 @@ trait HasSlug
 {
     /**
      * Database column name used to create the slug
-     * 
+     *
      * @return string
      */
     public static function sluggableKey() : string
@@ -35,7 +35,7 @@ trait HasSlug
     
     /**
      * Database column name used to store the slug value
-     * 
+     *
      * @return string
      */
     public static function slugKey() : string
