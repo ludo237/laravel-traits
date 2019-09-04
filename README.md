@@ -27,9 +27,9 @@ With time things can change, but for v1.x the basic traits will be:
 - `HasUuid` like HasSlug but for UUID.
 - `InteractsWithApi` automatically set the api_key for the current model following Laravel standards.
 
-## What to come
+## What will include in the next release
 
-Check this repository tags for new additions.
+- `OwnedByUser` Automatically set the current model as owned by the User model
 
 ## How to Contribute
 
