@@ -25,6 +25,12 @@ class CreatePackageTestTables extends Migration
             $table->dateTime("banned_at")->nullable()->default(null);
             $table->timestamps();
         });
+        
+        Schema::create("posts", function (Blueprint $table) {
+            $table->bigIncrements("id");
+            $table->unsignedBigInteger("user_id")->nullable()->index();
+            $table->timestamps();
+        });
     }
     
     /**

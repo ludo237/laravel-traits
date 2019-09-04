@@ -3,7 +3,6 @@
 namespace Ludo237\EloquentTraits\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -25,10 +24,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
     /** @test */
     public function it_runs_the_migrations()
     {
-        $user = DB::table("users")->where("id", "=", 1)->first();
-        
-        $this->assertNull($user);
-        
         $columns = Schema::getColumnListing("users");
         $this->assertEquals([
             "id",
