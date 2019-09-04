@@ -23,7 +23,7 @@ trait OwnedByUser
      * @return string
      * @see \Ludo237\EloquentTraits\OwnedByUser::owner()
      */
-    protected abstract function ownerClass() : string;
+    abstract protected function ownerClass() : string;
     
     /**
      * Defines the original field of the owner, usually it's the ID
