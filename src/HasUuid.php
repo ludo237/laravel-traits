@@ -10,6 +10,7 @@ use Ramsey\Uuid\Uuid;
  * Trait HasUuid
  *
  * @method static self|Builder whereUuid(string $uuid)
+ * @method static self|Builder orWhereUuid(string $uuid)
  * @package Ludo237\EloquentTraits
  */
 trait HasUuid
@@ -61,5 +62,18 @@ trait HasUuid
     public function scopeWhereUuid(Builder $builder, string $uuid) : Builder
     {
         return $builder->where(self::uuidField(), "=", $uuid);
+    }
+
+    /**
+     * Simple query scope to filter a model by the given uuid
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param string $uuid
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOrWhereUuid(Builder $builder, string $uuid) : Builder
+    {
+        return $builder->orWhere(self::uuidField(), "=", $uuid);
     }
 }
