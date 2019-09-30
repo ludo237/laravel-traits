@@ -57,4 +57,18 @@ class HasUuidTest extends TestCase
         $this->assertNotNull($fetchedUser);
         $this->assertEquals($user->id, $fetchedUser->id);
     }
+
+    /**
+     * @test
+     * @covers \Ludo237\EloquentTraits\HasUuid::scopeOrWhereUuid
+     */
+    public function it_can_be_scoped_eventually_by_the_uuid()
+    {
+        $user = User::create(["name" => "foo"]);
+        
+        $fetchedUser = User::where("name", "invalid")->orWhereUuid($user->uuid)->first();
+        
+        $this->assertNotNull($fetchedUser);
+        $this->assertEquals($user->id, $fetchedUser->id);
+    }
 }
