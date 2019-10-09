@@ -24,7 +24,7 @@ trait OwnedByUser
      * @example return App\User::class
      * @see \Ludo237\EloquentTraits\OwnedByUser::owner()
      */
-    abstract protected function ownerClass() : string;
+    abstract public function ownerClass() : string;
     
     /**
      * Defines the original field of the owner
@@ -32,7 +32,7 @@ trait OwnedByUser
      *
      * @return string
      */
-    protected static function ownerField() : string
+    public static function ownerField() : string
     {
         return "id";
     }
@@ -42,7 +42,7 @@ trait OwnedByUser
      *
      * @return string
      */
-    protected static function foreignOwnerField() : string
+    public static function foreignOwnerField() : string
     {
         return "user_id";
     }
