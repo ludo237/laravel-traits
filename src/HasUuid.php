@@ -20,7 +20,7 @@ trait HasUuid
      *
      * @return string
      */
-    protected static function uuidField() : string
+    public static function uuidField() : string
     {
         return "uuid";
     }
@@ -30,7 +30,7 @@ trait HasUuid
      *
      * @see \Illuminate\Database\Eloquent\Model::bootTraits()
      */
-    protected static function bootHasUuid() : void
+    public static function bootHasUuid() : void
     {
         static::creating(function (Model $model) {
             $model->{self::uuidField()} = Uuid::uuid4()->toString();
