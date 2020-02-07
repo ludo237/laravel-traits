@@ -47,6 +47,8 @@ class OwnedByUserTest extends TestCase
     /**
      * @test
      * @covers \Ludo237\EloquentTraits\OwnedByUser::isOwned
+     * @covers \Ludo237\EloquentTraits\OwnedByUser::isOwnedBy
+     * @covers \Ludo237\EloquentTraits\OwnedByUser::isOwnedByUserId
      */
     public function it_can_check_if_it_is_owned()
     {
@@ -57,7 +59,12 @@ class OwnedByUserTest extends TestCase
         ]);
         
         $this->assertFalse($post->isOwned());
+        $this->assertFalse($post->isOwnedBy($this->user));
+        $this->assertFalse($post->isOwnedByUserId($this->user->getKey()));
+        
         $this->assertTrue($anotherPost->isOwned());
+        $this->assertTrue($anotherPost->isOwnedBy($this->user));
+        $this->assertTrue($anotherPost->isOwnedByUserId($this->user->getKey()));
     }
     
     /**
