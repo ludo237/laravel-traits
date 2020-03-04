@@ -64,6 +64,26 @@ trait OwnedByUser
     }
     
     /**
+     * @param \Illuminate\Database\Eloquent\Model $user
+     *
+     * @return bool
+     */
+    public function isOwnedBy(Model $user) : bool
+    {
+        return $this->{self::foreignOwnerField()} === $user->getKey();
+    }
+    
+    /**
+     * @param $userId
+     *
+     * @return bool
+     */
+    public function isOwnedByUserId($userId) : bool
+    {
+        return $this->{self::foreignOwnerField()} == $userId;
+    }
+    
+    /**
      * Filter models by the given User id
      *
      * @param \Illuminate\Database\Eloquent\Builder $builder
