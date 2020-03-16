@@ -42,7 +42,9 @@ trait Bannable
      */
     public function isBanned() : bool
     {
-        return !is_null($this->attributes[self::banField()]);
+        return !is_null(
+            $this->getAttributeValue(self::banField())
+        );
     }
     
     /**
