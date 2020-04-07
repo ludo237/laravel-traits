@@ -6,7 +6,7 @@ Contributing are accepted via Merge Requests on [the official repository on Gitl
 
 ## Things you could do
 
-If you want to contribute but do not know where to start, this kist provides some starting points:
+If you want to contribute but do not know where to start, this list provides some starting points:
 
 - More Traits
 - More tests
@@ -26,16 +26,14 @@ If you want to contribute but do not know where to start, this kist provides som
 
 ## Set up the environment
 
-We leverage Docker to make the process easy as possible. In particular we use [Laradock](https://laradock.io/)
-to create the development environment in few minutes:
+We leverage Docker to make the process easy as possible. In particular, we use a dedicated [DockerFile](./docker/Dockerfile)
+to build a ready to use container for development.
 
-- Clone Laradock submodule:
-    - First Time: `git submodule update --init --recursive`
-    - Update:  `git submodule update --recursive --remote`
-- Copy `.laradock.env` inside `laradadock/.env` 
-- Change the directory in Laradock
-- Type `docker-compose up -d --build workspace` that's the only container you need
-- Once the container is created you can interact with it like a normal docker container
-- When you are done, inside Laradock directory, type `docker-compose down` and `docker-compose rm`
+- Install Docker on your OS
+- Change directory to this repository
+- Type `docker-compose up -d --build`
+- Wait until the container is ready
+- Once the container is up you can interact with it like a normal docker container
+- When you are done, type `docker-compose down` and `docker-compose rm`
 
 ## Happy Coding!
