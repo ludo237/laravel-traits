@@ -23,6 +23,7 @@ class CreatePackageTestTables extends Migration
             $table->string("slug")->unique();
             $table->string("name");
             $table->dateTime("banned_at")->nullable()->default(null);
+            $table->dateTime("activated_at")->nullable()->default(null);
             $table->timestamps();
         });
         
