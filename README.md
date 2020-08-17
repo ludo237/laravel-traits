@@ -21,14 +21,12 @@ EZPZ: Grab it from composer `composer require ludo237/laravel-eloquent-traits` a
 
 With time things can change, but for v1.x the basic traits will be:
 
-- `ExposeTableProperties` it allows the model to expose publicy the table name, the primary key name and his type.
 - `Bannable` inject logic into models to interact with a `banned_at` column.
+- `CanBeActivate` add logic to a model in order to activate/deactivate it using a timestamp column
+- `ExposeTableProperties` it allows the model to expose publicly the table name, the primary key name and his type.
 - `HasSlug` automatically creates the logic behind a `slug` column for your model.
 - `HasUuid` like HasSlug but for UUID.
 - `InteractsWithApi` automatically set the api_key for the current model following Laravel standards.
-
-## What will include in the next release
-
 - `OwnedByUser` Automatically set the current model as owned by the User model
 
 ## How to Contribute
