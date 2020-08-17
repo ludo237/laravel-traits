@@ -60,7 +60,7 @@ trait InteractsWithApi
      */
     public function hasApiKey(string $apiKey) : bool
     {
-        return $this->{self::apiField()} === $apiKey;
+        return $this->getAttributeValue(self::apiField()) === $apiKey;
     }
     
     /**
@@ -70,6 +70,6 @@ trait InteractsWithApi
      */
     public function doesNotHaveApiKey(string $apiKey) : bool
     {
-        return $this->{self::apiField()} !== $apiKey;
+        return !$this->hasApiKey($apiKey);
     }
 }

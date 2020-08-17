@@ -32,7 +32,9 @@ trait Bannable
      */
     public function remainingBanDays() : int
     {
-        return Date::today()->diffInDays($this->{self::banField()});
+        return Date::today()->diffInDays(
+            $this->getAttributeValue(self::banField())
+        );
     }
     
     /**
@@ -66,7 +68,7 @@ trait Bannable
     public function isStillBanned() : bool
     {
         return Date::today()->lessThanOrEqualTo(
-            $this->{self::banField()}
+            $this->getAttributeValue(self::banField())
         );
     }
     
@@ -79,10 +81,10 @@ trait Bannable
     public function hasExpiredBan() : bool
     {
         return Date::today()->greaterThan(
-            $this->{self::banField()}
+            $this->getAttributeValue(self::banField())
         );
     }
-   
+    
     /**
      * Ban an entity with a given date
      *
