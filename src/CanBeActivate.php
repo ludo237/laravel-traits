@@ -1,6 +1,6 @@
 <?php
 
-namespace Ludo237/EloquentTraits;
+namespace Ludo237\EloquentTraits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Date;
