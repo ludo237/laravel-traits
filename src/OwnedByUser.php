@@ -52,7 +52,7 @@ trait OwnedByUser
      */
     public function isOwned() : bool
     {
-        return !is_null($this->{self::foreignOwnerField()});
+        return !is_null($this->getAttributeValue(self::foreignOwnerField()));
     }
     
     /**
@@ -60,7 +60,7 @@ trait OwnedByUser
      */
     public function isNotOwned() : bool
     {
-        return is_null($this->{self::foreignOwnerField()});
+        return !$this->isOwned();
     }
     
     /**
@@ -70,7 +70,17 @@ trait OwnedByUser
      */
     public function isOwnedBy(Model $user) : bool
     {
-        return $this->{self::foreignOwnerField()} === $user->getKey();
+        return $this->getAttributeValue(self::foreignOwnerField()) === $user->getKey();
+    }
+    
+    /**
+     * @param \Illuminate\Database\Eloquent\Model $user
+     *
+     * @return bool
+     */
+    public function isNotOwnedBy(Model $user) : bool
+    {
+        return !$this->isOwnedBy($user);
     }
     
     /**
@@ -80,7 +90,17 @@ trait OwnedByUser
      */
     public function isOwnedByUserId($userId) : bool
     {
-        return $this->{self::foreignOwnerField()} == $userId;
+        return $this->getAttributeValue(self::foreignOwnerField()) == $userId;
+    }
+    
+    /**
+     * @param $userId
+     *
+     * @return bool
+     */
+    public function isNotOwnedByUserId($userId) : bool
+    {
+        return !$this->isOwnedByUserId($userId);
     }
     
     /**
@@ -140,6 +160,7 @@ trait OwnedByUser
      */
     public function owner() : BelongsTo
     {
+        // TODO this should not be allowed because it's abstract...
         return $this->belongsTo(self::ownerClass(), self::foreignOwnerField(), self::ownerField());
     }
     

@@ -47,24 +47,33 @@ class OwnedByUserTest extends TestCase
     /**
      * @test
      * @covers \Ludo237\EloquentTraits\OwnedByUser::isOwned
+     * @covers \Ludo237\EloquentTraits\OwnedByUser::isNotOwned
      * @covers \Ludo237\EloquentTraits\OwnedByUser::isOwnedBy
+     * @covers \Ludo237\EloquentTraits\OwnedByUser::isNotOwnedBy
      * @covers \Ludo237\EloquentTraits\OwnedByUser::isOwnedByUserId
+     * @covers \Ludo237\EloquentTraits\OwnedByUser::isNotOwnedByUserId
      */
     public function it_can_check_if_it_is_owned()
     {
         $post = Post::create();
-        
+    
         $anotherPost = Post::create([
             "user_id" => $this->user->id,
         ]);
-        
+    
         $this->assertFalse($post->isOwned());
+        $this->assertTrue($post->isNotOwned());
         $this->assertFalse($post->isOwnedBy($this->user));
+        $this->assertTrue($post->isNotOwnedBy($this->user));
         $this->assertFalse($post->isOwnedByUserId($this->user->getKey()));
-        
+        $this->assertTrue($post->isNotOwnedByUserId($this->user->getKey()));
+    
         $this->assertTrue($anotherPost->isOwned());
+        $this->assertFalse($anotherPost->isNotOwned());
         $this->assertTrue($anotherPost->isOwnedBy($this->user));
+        $this->assertFalse($anotherPost->isNotOwnedBy($this->user));
         $this->assertTrue($anotherPost->isOwnedByUserId($this->user->getKey()));
+        $this->assertFalse($anotherPost->isNotOwnedByUserId($this->user->getKey()));
     }
     
     /**
