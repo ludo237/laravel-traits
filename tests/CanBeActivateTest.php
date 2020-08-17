@@ -45,14 +45,14 @@ class CanBeActivateTest extends TestCase
     {
         $user = User::create([
             "name" => "foo",
-            "activate_at" => null,
+            "activated_at" => null,
         ]);
         
         $user->activate();
         
         $this->assertDatabaseMissing("users", [
             "id" => $user->id,
-            "activate_at" => null,
+            "activated_at" => null,
         ]);
     }
 
@@ -64,14 +64,14 @@ class CanBeActivateTest extends TestCase
     {
         $user = User::create([
             "name" => "foo",
-            "activate_at" => Date::today(),
+            "activated_at" => Date::today(),
         ]);
         
         $user->deactivate();
         
         $this->assertDatabaseHas("users", [
             "id" => $user->id,
-            "activate_at" => null,
+            "activated_at" => null,
         ]);
     }
     

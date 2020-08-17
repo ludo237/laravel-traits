@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Date;
 
 /**
- * Trait CanBeActivated
+ * Trait CanBeActivate
  * @method static self|Builder activated()
  * @method static self|Builder notActivated()
  * @package Ludo237\EloquentTraits
  */
-trait CanBeActivated
+trait CanBeActivate
 {
     /**
      * Defines the activated at field for the model.

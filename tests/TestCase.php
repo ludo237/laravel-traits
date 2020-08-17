@@ -32,6 +32,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
             "slug",
             "name",
             "banned_at",
+            "activated_at",
             "created_at",
             "updated_at",
         ], $columns);
