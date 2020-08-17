@@ -1,3 +1,6 @@
+include:
+  - template: Dependency-Scanning.gitlab-ci.yml
+
 image: edbizarro/gitlab-ci-pipeline-php:7.3-alpine
 
 # Setup common stages
@@ -49,13 +52,16 @@ phpcpd:
   before_script:
     - test -f phpcpd.phar || curl -L https://phar.phpunit.de/phpcpd.phar -o phpcpd.phar
   script:
-    - php phpcpd.phar app/ --min-lines=50
+    - php phpcpd.phar src/ --min-lines=50
 
 # Security check on the whole dependencies tree
 sensiolabs:
   stage: test
   environment:
     name: testing
+  needs: ["composer"]
+  dependencies:
+    - composer
   artifacts:
     paths:
       - reports
