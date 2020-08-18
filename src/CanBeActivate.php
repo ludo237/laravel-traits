@@ -44,8 +44,6 @@ trait CanBeActivate
         return !$this->isActive();
     }
 
-
-
     /**
      * Activate a model
      *

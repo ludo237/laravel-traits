@@ -8,7 +8,8 @@ RUN apk add --no-cache --virtual .build-deps \
     libjpeg-turbo-dev \
     libpng-dev \
     libtool \
-    libxml2-dev
+    libxml2-dev \
+    oniguruma-dev
 
 # Install production dependencies
 RUN apk add --no-cache \
@@ -37,14 +38,12 @@ RUN pecl install xdebug
 
 # Configure php extensions
 RUN docker-php-ext-configure gd \
-    --with-gd \
-    --with-freetype-dir=/usr/include/ \
-    --with-png-dir=/usr/include/ \
-    --with-jpeg-dir=/usr/include/ \
+    --with-freetype \
+    --with-jpeg \
     && docker-php-ext-configure mbstring --enable-mbstring \
     && docker-php-ext-configure intl --enable-intl \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql \
-    && docker-php-ext-configure zip --with-libzip
+    && docker-php-ext-configure zip
 
 # Install php extensions
 RUN docker-php-ext-install \
