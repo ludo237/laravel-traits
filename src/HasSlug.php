@@ -44,15 +44,18 @@ trait HasSlug
     }
     
     /**
-     *  Automatically inject the slug creation during the model creation
+     *  Automatically inject the slug creation during the model creation if not provided
      */
     public static function bootHasSlug() : void
     {
         static::creating(function (Model $model) {
-            $randomSalt = Str::random(4);
-            $title = "{$model->{self::sluggableKey()}} {$randomSalt}";
-            
-            $model->{self::slugKey()} = Str::slug($title, self::separator());
+            if (empty($model->getAttributeValue(self::slugKey()))) {
+                $value = $model->getAttributeValue(self::sluggableKey());
+                $randomSalt = Str::random(8);
+                $slug = Str::slug("{$value} ${randomSalt}", self::separator());
+                
+                $model->setAttribute(self::slugKey(), $slug);
+            }
         });
     }
     
