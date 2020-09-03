@@ -3,7 +3,6 @@
 namespace Ludo237\EloquentTraits\Tests;
 
 use Ludo237\EloquentTraits\Tests\Stubs\User;
-use Ludo237\EloquentTraits\Tests\TestCase;
 
 /**
  * Class InteractsWithApiTest
@@ -28,7 +27,7 @@ class InteractsWithApiTest extends TestCase
     public function an_api_key_be_assigned_on_creating()
     {
         // The merge is necessary since password is an hidden attribute
-        $user = User::create(["name" => "foo"]);
+        $user = User::query()->create(["name" => "foo"]);
         
         $this->assertNotNull($user->api_key);
     }
@@ -39,7 +38,7 @@ class InteractsWithApiTest extends TestCase
      */
     public function api_key_will_be_encrypted_by_default()
     {
-        $user = User::create(["name" => "foo"]);
+        $user = User::query()->create(["name" => "foo"]);
         
         $rawApi = $user->getAttributes()["api_key"];
         
@@ -52,7 +51,7 @@ class InteractsWithApiTest extends TestCase
      */
     public function api_key_will_be_decrypted_by_default()
     {
-        $user = User::create(["name" => "foo"]);
+        $user = User::query()->create(["name" => "foo"]);
         
         $rawApi = $user->getAttribute("api_key");
         
@@ -66,7 +65,7 @@ class InteractsWithApiTest extends TestCase
      */
     public function it_can_check_if_model_has_an_api_key()
     {
-        $user = User::create(["name" => "foo"]);
+        $user = User::query()->create(["name" => "foo"]);
         
         $this->assertTrue($user->doesNotHaveApiKey("foobar"));
         $this->assertTrue($user->hasApiKey($user->api_key));

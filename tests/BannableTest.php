@@ -26,7 +26,7 @@ class BannableTest extends TestCase
      */
     public function it_returns_the_number_of_days_remaining_for_the_ban()
     {
-        $user = User::create([
+        $user = User::query()->create([
             "name" => "foo",
             "banned_at" => Date::today()->addDays(10),
         ]);
@@ -41,7 +41,7 @@ class BannableTest extends TestCase
      */
     public function it_returns_true_if_an_entity_is_banned()
     {
-        $user = User::create([
+        $user = User::query()->create([
             "name" => "foo",
             "banned_at" => Date::today(),
         ]);
@@ -56,14 +56,14 @@ class BannableTest extends TestCase
      */
     public function it_returns_true_if_an_entity_is_still_banned_up_until_today()
     {
-        $user = User::create([
+        $user = User::query()->create([
             "name" => "foo",
             "banned_at" => Date::today(),
         ]);
         
         $this->assertTrue($user->isStillBanned());
         
-        $user = User::create([
+        $user = User::query()->create([
             "name" => "foo",
             "banned_at" => Date::today()->subDay(),
         ]);
@@ -77,14 +77,14 @@ class BannableTest extends TestCase
      */
     public function it_returns_true_if_an_entity_has_an_expired_ban()
     {
-        $user = User::create([
+        $user = User::query()->create([
             "name" => "foo",
             "banned_at" => Date::today(),
         ]);
         
         $this->assertFalse($user->hasExpiredBan());
         
-        $user = User::create([
+        $user = User::query()->create([
             "name" => "foo",
             "banned_at" => Date::today()->subDay(),
         ]);
@@ -103,7 +103,7 @@ class BannableTest extends TestCase
      */
     public function it_can_ban_an_entity()
     {
-        $user = User::create(["name" => "foo"]);
+        $user = User::query()->create(["name" => "foo"]);
         
         $user->banFor($banDate = Date::today()->addDays(4));
         $this->assertDatabaseHas("users", [
@@ -148,7 +148,7 @@ class BannableTest extends TestCase
      */
     public function it_can_lift_a_ban()
     {
-        $user = User::create([
+        $user = User::query()->create([
             "name" => "foo",
             "banned_at" => Date::today(),
         ]);
@@ -167,9 +167,9 @@ class BannableTest extends TestCase
      */
     public function it_can_scope_banned_entities()
     {
-        User::create(["name" => "foo0"]);
-        User::create(["name" => "foo1"]);
-        User::create([
+        User::query()->create(["name" => "foo0"]);
+        User::query()->create(["name" => "foo1"]);
+        User::query()->create([
             "name" => "foo2",
             "banned_at" => Date::today(),
         ]);
@@ -183,9 +183,9 @@ class BannableTest extends TestCase
      */
     public function it_can_scope_not_banned_entities()
     {
-        User::create(["name" => "foo0"]);
-        User::create(["name" => "foo1"]);
-        User::create([
+        User::query()->create(["name" => "foo0"]);
+        User::query()->create(["name" => "foo1"]);
+        User::query()->create([
             "name" => "foo2",
             "banned_at" => Date::today(),
         ]);

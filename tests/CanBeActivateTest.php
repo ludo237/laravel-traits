@@ -27,7 +27,7 @@ class CanBeActivateTest extends TestCase
      */
     public function it_returns_true_if_a_model_is_active()
     {
-        $user = User::create([
+        $user = User::query()->create([
             "name" => "foo",
             "activated_at" => Date::today(),
         ]);
@@ -43,7 +43,7 @@ class CanBeActivateTest extends TestCase
      */
     public function it_can_activate_a_model()
     {
-        $user = User::create([
+        $user = User::query()->create([
             "name" => "foo",
             "activated_at" => null,
         ]);
@@ -62,7 +62,7 @@ class CanBeActivateTest extends TestCase
      */
     public function it_can_deactivate_a_model()
     {
-        $user = User::create([
+        $user = User::query()->create([
             "name" => "foo",
             "activated_at" => Date::today(),
         ]);
@@ -81,9 +81,9 @@ class CanBeActivateTest extends TestCase
      */
     public function it_can_scope_active_models()
     {
-        User::create(["name" => "foo0"]);
-        User::create(["name" => "foo1"]);
-        User::create([
+        User::query()->create(["name" => "foo0"]);
+        User::query()->create(["name" => "foo1"]);
+        User::query()->create([
             "name" => "foo2",
             "activated_at" => Date::today(),
         ]);
@@ -97,9 +97,9 @@ class CanBeActivateTest extends TestCase
      */
     public function it_can_scope_not_active_models()
     {
-        User::create(["name" => "foo0"]);
-        User::create(["name" => "foo1"]);
-        User::create([
+        User::query()->create(["name" => "foo0"]);
+        User::query()->create(["name" => "foo1"]);
+        User::query()->create([
             "name" => "foo2",
             "activated_at" => Date::today(),
         ]);

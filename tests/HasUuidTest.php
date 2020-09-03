@@ -26,7 +26,7 @@ class HasUuidTest extends TestCase
      */
     public function an_uuid_will_be_assigned_on_creating()
     {
-        $user = User::create(["name" => "foo"]);
+        $user = User::query()->create(["name" => "foo"]);
         
         $this->assertTrue(
             Uuid::isValid($user->uuid)
@@ -39,7 +39,7 @@ class HasUuidTest extends TestCase
      */
     public function it_returns_the_short_uuid()
     {
-        $user = User::create(["name" => "foo"]);
+        $user = User::query()->create(["name" => "foo"]);
         
         $this->assertStringEndsWith($user->short_uuid, $user->uuid);
     }
@@ -50,7 +50,7 @@ class HasUuidTest extends TestCase
      */
     public function it_can_be_scoped_by_the_uuid()
     {
-        $user = User::create(["name" => "foo"]);
+        $user = User::query()->create(["name" => "foo"]);
         
         $fetchedUser = User::whereUuid($user->uuid)->first();
         
@@ -64,7 +64,7 @@ class HasUuidTest extends TestCase
      */
     public function it_can_be_scoped_eventually_by_the_uuid()
     {
-        $user = User::create(["name" => "foo"]);
+        $user = User::query()->create(["name" => "foo"]);
         
         $fetchedUser = User::where("name", "invalid")->orWhereUuid($user->uuid)->first();
         

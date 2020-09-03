@@ -45,7 +45,7 @@ class HasSlugTest extends TestCase
      */
     public function it_creates_a_slug_if_not_provided_when_creating()
     {
-        $user = User::create(["name" => "foo"]);
+        $user = User::query()->create(["name" => "foo"]);
         
         $slug = $user->getAttributeValue("slug");
         $slug = explode(".", $slug);
@@ -61,7 +61,7 @@ class HasSlugTest extends TestCase
      */
     public function it_does_not_create_a_slug_if_provided_when_creating()
     {
-        $user = User::create(["name" => "foo", "slug" => "foo.bar_baz"]);
+        $user = User::query()->create(["name" => "foo", "slug" => "foo.bar_baz"]);
         
         $this->assertEquals("foo.bar_baz", $user->getAttributeValue("slug"));
     }
@@ -120,7 +120,7 @@ class HasSlugTest extends TestCase
      */
     public function it_can_scope_models_by_slug()
     {
-        $user = User::create(["name" => "foo"]);
+        $user = User::query()->create(["name" => "foo"]);
         
         $fetchedUser = User::whereSlug($user->slug)->first();
         

@@ -18,7 +18,7 @@ class OwnedByUserTest extends TestCase
     {
         parent::setUp();
         
-        $this->user = User::create([
+        $this->user = User::query()->create([
             "uuid" => "123aa-bb456",
             "name" => "Foo Bar",
             "slug" => "foo.bar.1",
@@ -55,9 +55,9 @@ class OwnedByUserTest extends TestCase
      */
     public function it_can_check_if_it_is_owned()
     {
-        $post = Post::create();
+        $post = Post::query()->create();
     
-        $anotherPost = Post::create([
+        $anotherPost = Post::query()->create([
             "user_id" => $this->user->id,
         ]);
     
@@ -82,8 +82,8 @@ class OwnedByUserTest extends TestCase
      */
     public function it_can_check_if_it_is_not_owned()
     {
-        $post = Post::create();
-        $anotherPost = Post::create([
+        $post = Post::query()->create();
+        $anotherPost = Post::query()->create([
             "user_id" => $this->user->id,
         ]);
         
@@ -97,10 +97,10 @@ class OwnedByUserTest extends TestCase
      */
     public function it_can_be_scoped_by_a_given_user()
     {
-        $postOfUser = Post::create([
+        $postOfUser = Post::query()->create([
             "user_id" => $this->user->id,
         ]);
-        $anotherPost = Post::create();
+        $anotherPost = Post::query()->create();
         
         $posts = Post::ofUser($this->user)->get();
         
@@ -114,10 +114,10 @@ class OwnedByUserTest extends TestCase
      */
     public function it_can_be_scoped_by_a_given_user_id()
     {
-        $postOfUser = Post::create([
+        $postOfUser = Post::query()->create([
             "user_id" => $this->user->id,
         ]);
-        $anotherPost = Post::create();
+        $anotherPost = Post::query()->create();
         
         $posts = Post::ofUserId($this->user->id)->get();
         
@@ -133,10 +133,10 @@ class OwnedByUserTest extends TestCase
     {
         $this->actingAs($this->user);
         
-        $postOfUser = Post::create([
+        $postOfUser = Post::query()->create([
             "user_id" => $this->user->id,
         ]);
-        $anotherPost = Post::create();
+        $anotherPost = Post::query()->create();
         
         $posts = Post::ofAuthenticatedUser()->get();
         
@@ -151,14 +151,14 @@ class OwnedByUserTest extends TestCase
      */
     public function it_inject_the_belongs_to_user_relationship()
     {
-        $post = Post::create([
+        $post = Post::query()->create([
             "user_id" => $this->user->id,
         ]);
         
         $this->assertInstanceOf(User::class, $post->user);
         $this->assertEquals($post->user_id, $post->user->id);
         
-        $post = Post::create();
+        $post = Post::query()->create();
         
         $this->assertNull($post->user);
     }
@@ -170,7 +170,7 @@ class OwnedByUserTest extends TestCase
     public function user_can_be_set_through_a_convenient_mutator()
     {
         /** @var \Ludo237\EloquentTraits\Tests\Stubs\Post $post */
-        $post = Post::create();
+        $post = Post::query()->create();
         $post->user = $this->user;
         
         $this->assertEquals($this->user->id, $post->user_id);
