@@ -84,9 +84,6 @@ sensiolabs:
     - composer install
   script:
     - php security-checker security:check ../composer.lock
-  only:
-    - merge_request
-    - tags
 
 # Testing time
 unit:
@@ -104,7 +101,4 @@ unit:
   before_script:
     - mkdir -p ./reports
   script:
-    - ./vendor/bin/phpunit --colors=never
-  only:
-    - merge_request
-    - tags
+    - ./vendor/bin/phpunit --coverage-text --colors=never
