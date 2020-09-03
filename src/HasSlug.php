@@ -44,17 +44,37 @@ trait HasSlug
     }
     
     /**
-     *  Automatically inject the slug creation during the model creation if not provided
+     * A Wrapper for generate a slug of a given model
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     *
+     * @return void
+     */
+    private static function generateSlug(Model $model) : void
+    {
+        $value = $model->getAttributeValue(self::sluggableKey());
+        $randomSalt = Str::random(8);
+        $slug = Str::slug("{$value} ${randomSalt}", self::separator());
+        
+        $model->setAttribute(self::slugKey(), $slug);
+    }
+    
+    /**
+     * Automatically inject the slug creation during the model creation/update if not provided
+     *
+     * @return void
      */
     public static function bootHasSlug() : void
     {
         static::creating(function (Model $model) {
             if (empty($model->getAttributeValue(self::slugKey()))) {
-                $value = $model->getAttributeValue(self::sluggableKey());
-                $randomSalt = Str::random(8);
-                $slug = Str::slug("{$value} ${randomSalt}", self::separator());
-                
-                $model->setAttribute(self::slugKey(), $slug);
+                self::generateSlug($model);
+            }
+        });
+        
+        static::updating(function (Model $model) {
+            if (empty($model->getAttributeValue(self::slugKey()))) {
+                self::generateSlug($model);
             }
         });
     }

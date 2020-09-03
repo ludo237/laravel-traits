@@ -68,6 +68,54 @@ class HasSlugTest extends TestCase
     
     /**
      * @test
+     * @covers \Ludo237\EloquentTraits\HasSlug::bootHasSlug
+     */
+    public function it_creates_a_slug_if_not_provided_when_updating()
+    {
+        $user = User::query()->create(["name" => "foo", "slug" => "foo.bar_baz"]);
+        
+        $user->update([
+            "slug" => null,
+        ]);
+        
+        $slug = $user->getAttributeValue("slug");
+        $slug = explode(".", $slug);
+        
+        $this->assertNotNull($slug);
+        $this->assertEquals(8, strlen($slug[1]));
+        $this->assertEquals(Str::slug($user->getAttributeValue("name")), $slug[0]);
+        
+        // Better safe than sorry
+        $user->update([
+            "slug" => "",
+        ]);
+        
+        $slug = $user->getAttributeValue("slug");
+        $slug = explode(".", $slug);
+        
+        $this->assertNotNull($slug);
+        $this->assertEquals(8, strlen($slug[1]));
+        $this->assertEquals(Str::slug($user->getAttributeValue("name")), $slug[0]);
+    }
+    
+    /**
+     * @test
+     * @covers \Ludo237\EloquentTraits\HasSlug::bootHasSlug
+     */
+    public function it_does_not_create_a_slug_if_provided_when_updating()
+    {
+        $user = User::query()->create(["name" => "foo", "slug" => "foo.bar_baz"]);
+        
+        $user->update([
+            "name" => "new name",
+            "slug" => "foo.baz",
+        ]);
+        
+        $this->assertEquals("foo.baz", $user->getAttributeValue("slug"));
+    }
+    
+    /**
+     * @test
      * @covers \Ludo237\EloquentTraits\HasSlug::scopeWhereSlug
      */
     public function it_can_scope_models_by_slug()
