@@ -47,7 +47,7 @@ codestyle:
 
 # Run analysis for standards
 code_quality:
-  stage: test
+  stage: check
   needs: ["composer"]
   dependencies:
     - composer
@@ -84,6 +84,9 @@ sensiolabs:
     - composer install
   script:
     - php security-checker security:check ../composer.lock
+  only:
+    - merge_request
+    - tags
 
 # Testing time
 unit:
@@ -102,3 +105,6 @@ unit:
     - mkdir -p ./reports
   script:
     - ./vendor/bin/phpunit --colors=never
+  only:
+    - merge_request
+    - tags
