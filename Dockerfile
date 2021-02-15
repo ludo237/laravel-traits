@@ -48,19 +48,12 @@ RUN docker-php-ext-configure gd \
 # Install php extensions
 RUN docker-php-ext-install \
     bcmath \
-    calendar \
-    curl \
     exif \
     gd \
-    iconv \
     intl \
-    json \
-    mbstring \
     pdo \
     pdo_mysql \
     pcntl \
-    tokenizer \
-    xml \
     zip
 
 # Enable PECL and PEAR extensions

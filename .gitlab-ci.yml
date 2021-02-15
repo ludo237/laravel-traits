@@ -65,13 +65,11 @@ phpcpd:
     - php phpcpd.phar src/ --min-lines=50
 
 # Security check on the whole dependencies tree
-sensiolabs:
+security-advisories:
   stage: check
   environment:
     name: testing
-  needs: ["composer"]
-  dependencies:
-    - composer
+  needs: []
   artifacts:
     paths:
       - reports
@@ -79,11 +77,13 @@ sensiolabs:
     when: on_failure
   before_script:
     - mkdir -p ./reports
-    - test -d security-checker || git clone https://github.com/sensiolabs/security-checker.git
-    - cd security-checker
-    - composer install
+    - apk add bash
+    - wget https://get.symfony.com/cli/installer -O - | bash
+    - mv /root/.symfony/bin/symfony /usr/local/bin/symfony
   script:
-    - php security-checker security:check ../composer.lock
+    - symfony security:check
+  only:
+    - tags
 
 # Testing time
 unit:
