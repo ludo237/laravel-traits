@@ -15,7 +15,7 @@ class Post extends Model
     
     protected $fillable = ["user_id"];
     
-    protected static function ownerClass() : string
+    protected function ownerClass() : string
     {
         return User::class;
     }
