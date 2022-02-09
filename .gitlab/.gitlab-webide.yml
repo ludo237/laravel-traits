@@ -1,0 +1,5 @@
+terminal:
+  image: edbizarro/gitlab-ci-pipeline-php:8.0-alpine
+  before_script:
+    - echo "ready"
+  script: sleep 60
