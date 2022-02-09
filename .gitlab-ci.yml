@@ -1,7 +1,7 @@
 include:
   - template: Dependency-Scanning.gitlab-ci.yml
 
-image: edbizarro/gitlab-ci-pipeline-php:8.0-alpine
+image: registry.gitlab.com/6go-srl/docker/php:8.1
 
 # Setup common stages
 stages:
