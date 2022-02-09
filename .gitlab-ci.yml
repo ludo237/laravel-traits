@@ -77,9 +77,9 @@ security-advisories:
     when: on_failure
   before_script:
     - mkdir -p ./reports
-    - sudo apk add bash
+    - apk add bash
     - wget https://get.symfony.com/cli/installer -O - | bash
-    - sudo mv ~/.symfony/bin/symfony /usr/local/bin/symfony
+    - mv ~/.symfony/bin/symfony /usr/local/bin/symfony
   script:
     - symfony security:check
   only:
