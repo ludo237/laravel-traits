@@ -1,17 +1,17 @@
 {
-  "name": "ludo237/laravel-eloquent-traits",
-  "description": "Useful set of Eloquent traits",
+  "name": "ludo237/laravel-traits",
+  "description": "Useful set of Laravel traits",
   "license": "MIT",
   "authors": [
     {
       "name": "Claudio Ludovico",
-      "email": "ludovico1990@hotmail.it"
+      "email": "quiet.flame8899@fastmail.com"
     }
   ],
-  "homepage": "https://gitlab.com/ludo237/laravel-eloquent-traits",
+  "homepage": "https://gitlab.com/ludo237/laravel-traits",
   "keywords": [
     "laravel",
-    "eloquent",
+    "traits",
     "orm",
     "active-record",
     "laravel-package",
@@ -19,11 +19,11 @@
   ],
   "require": {
     "php": "^7.2|^8.0",
-    "illuminate/support": "7.x|8.x|9.x"
+    "illuminate/support": "8.x|9.x"
   },
   "require-dev": {
     "fakerphp/faker": "^1.13",
-    "laravel/framework": "7.x|8.x|9.x",
+    "laravel/framework": "8.x|9.x",
     "mockery/mockery": "^1.4",
     "nunomaduro/larastan": "^0.7",
     "orchestra/testbench": "^6.12",
@@ -32,12 +32,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Ludo237\\EloquentTraits\\": "src/"
+      "Ludo237\\Traits\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Ludo237\\EloquentTraits\\Tests\\": "tests"
+      "Ludo237\\Traits\\Tests\\": "tests"
     }
   },
   "minimum-stability": "stable",
