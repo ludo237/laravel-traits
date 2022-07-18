@@ -19,7 +19,7 @@ EZPZ: Grab it from composer `composer require ludo237/laravel-traits` and it's d
 
 ## What is included
 
-With time things can change, but for v1.x the basic traits will be:
+With time things can change current traits are:
 
 - `Bannable` inject logic into models to interact with a `banned_at` column.
 - `CanBeActivate` add logic to a model in order to activate/deactivate it using a timestamp column
