@@ -1,20 +1,16 @@
 <?php
 
-namespace Ludo237\EloquentTraits\Tests;
+namespace Ludo237\Traits\Tests;
 
 use Illuminate\Support\Str;
-use Ludo237\EloquentTraits\HasSlug;
-use Ludo237\EloquentTraits\Tests\Stubs\User;
+use Ludo237\Traits\HasSlug;
+use Ludo237\Traits\Tests\Stubs\UserStub;
 
-/**
- * Class HasSlugTest
- * @package Ludo237\EloquentTraits\Tests
- */
 class HasSlugTest extends TestCase
 {
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\HasSlug::sluggableKey
+     * @covers \Ludo237\Traits\HasSlug::sluggableKey
      */
     public function it_has_a_sluggable_key()
     {
@@ -23,7 +19,7 @@ class HasSlugTest extends TestCase
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\HasSlug::separator
+     * @covers \Ludo237\Traits\HasSlug::separator
      */
     public function it_has_a_separator()
     {
@@ -32,7 +28,7 @@ class HasSlugTest extends TestCase
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\HasSlug::slugKey
+     * @covers \Ludo237\Traits\HasSlug::slugKey
      */
     public function it_has_a_slug_key()
     {
@@ -41,11 +37,11 @@ class HasSlugTest extends TestCase
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\HasSlug::bootHasSlug
+     * @covers \Ludo237\Traits\HasSlug::bootHasSlug
      */
     public function it_creates_a_slug_if_not_provided_when_creating()
     {
-        $user = User::query()->create(["name" => "foo"]);
+        $user = UserStub::query()->create(["name" => "foo"]);
         
         $slug = $user->getAttributeValue("slug");
         $slug = explode(".", $slug);
@@ -57,22 +53,22 @@ class HasSlugTest extends TestCase
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\HasSlug::bootHasSlug
+     * @covers \Ludo237\Traits\HasSlug::bootHasSlug
      */
     public function it_does_not_create_a_slug_if_provided_when_creating()
     {
-        $user = User::query()->create(["name" => "foo", "slug" => "foo.bar_baz"]);
+        $user = UserStub::query()->create(["name" => "foo", "slug" => "foo.bar_baz"]);
         
         $this->assertEquals("foo.bar_baz", $user->getAttributeValue("slug"));
     }
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\HasSlug::bootHasSlug
+     * @covers \Ludo237\Traits\HasSlug::bootHasSlug
      */
     public function it_creates_a_slug_if_not_provided_when_updating()
     {
-        $user = User::query()->create(["name" => "foo", "slug" => "foo.bar_baz"]);
+        $user = UserStub::query()->create(["name" => "foo", "slug" => "foo.bar_baz"]);
         
         $user->update([
             "slug" => null,
@@ -100,11 +96,11 @@ class HasSlugTest extends TestCase
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\HasSlug::bootHasSlug
+     * @covers \Ludo237\Traits\HasSlug::bootHasSlug
      */
     public function it_does_not_create_a_slug_if_provided_when_updating()
     {
-        $user = User::query()->create(["name" => "foo", "slug" => "foo.bar_baz"]);
+        $user = UserStub::query()->create(["name" => "foo", "slug" => "foo.bar_baz"]);
         
         $user->update([
             "name" => "new name",
@@ -112,18 +108,5 @@ class HasSlugTest extends TestCase
         ]);
         
         $this->assertEquals("foo.baz", $user->getAttributeValue("slug"));
-    }
-    
-    /**
-     * @test
-     * @covers \Ludo237\EloquentTraits\HasSlug::scopeWhereSlug
-     */
-    public function it_can_scope_models_by_slug()
-    {
-        $user = User::query()->create(["name" => "foo"]);
-        
-        $fetchedUser = User::whereSlug($user->slug)->first();
-        
-        $this->assertTrue($user->is($fetchedUser));
     }
 }

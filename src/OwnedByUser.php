@@ -1,20 +1,11 @@
 <?php
 
-namespace Ludo237\EloquentTraits;
+namespace Ludo237\Traits;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Auth;
 
-/**
- * Trait OwnedByUser
- *
- * @method static self|Builder ofUserId($userId, string $column = "user_id")
- * @method static self|Builder ofUser($user)
- * @method static self|Builder ofAuthenticatedUser()
- * @package Ludo237\EloquentTraits
- */
 trait OwnedByUser
 {
     /**
@@ -22,7 +13,7 @@ trait OwnedByUser
      *
      * @return string
      * @example return App\User::class
-     * @see \Ludo237\EloquentTraits\OwnedByUser::owner()
+     * @see \Ludo237\Traits\OwnedByUser::owner()
      */
     abstract public function ownerClass() : string;
     
@@ -104,53 +95,21 @@ trait OwnedByUser
     }
     
     /**
-     * Filter models by the given User id
+     * Set the attribute owner
      *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param int|string $userId
-     * @param string $column
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    public function scopeOfUserId(Builder $builder, $userId, string $column = "user_id") : Builder
+    public function owner() : Attribute
     {
-        return $builder->where($column, "=", $userId);
-    }
-    
-    /**
-     * Filter models by the given User model
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param \Illuminate\Database\Eloquent\Model $user
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeOfUser(Builder $builder, Model $user) : Builder
-    {
-        return $this->scopeOfUserId($builder, $user->getKey());
-    }
-    
-    /**
-     * Filter models by the current authenticated user
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeOfAuthenticatedUser(Builder $builder) : Builder
-    {
-        return $this->scopeOfUserId($builder, Auth::id());
-    }
-    
-    /**
-     * Automagically set the user attribute without exposing the key
-     *
-     * @param \Illuminate\Database\Eloquent\Model $user
-     */
-    public function setUserAttribute(Model $user)
-    {
-        $this->attributes[self::foreignOwnerField()] = $user->getKey();
-        $this->setRelation("user", $user);
+        return Attribute::make(
+            get: fn($value) => $value,
+            set: function (Model $value, array $attributes) {
+                $attributes[self::foreignOwnerField()] = $value->getKey();
+                $this->setRelation("user", $value);
+                
+                return $attributes;
+            }
+        );
     }
     
     /**
@@ -158,19 +117,9 @@ trait OwnedByUser
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function owner() : BelongsTo
+    public function user() : BelongsTo
     {
         // TODO this should not be allowed because it's abstract...
         return $this->belongsTo(self::ownerClass(), self::foreignOwnerField(), self::ownerField());
-    }
-    
-    /**
-     * Return the same result of owner() but with a fancy method name
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user() : BelongsTo
-    {
-        return $this->owner();
     }
 }

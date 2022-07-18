@@ -1,16 +1,10 @@
 <?php
 
-namespace Ludo237\EloquentTraits;
+namespace Ludo237\Traits;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-/**
- * Trait HasSlug
- * @method static self|Builder whereSlug(string $slug)
- * @package Ludo237\EloquentTraits
- */
 trait HasSlug
 {
     /**
@@ -54,7 +48,7 @@ trait HasSlug
     {
         $value = $model->getAttributeValue(self::sluggableKey());
         $randomSalt = Str::random(8);
-        $slug = Str::slug("{$value} ${randomSalt}", self::separator());
+        $slug = Str::slug("$value $randomSalt", self::separator());
         
         $model->setAttribute(self::slugKey(), $slug);
     }
@@ -77,16 +71,5 @@ trait HasSlug
                 self::generateSlug($model);
             }
         });
-    }
-    
-    /**
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param string $slug
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeWhereSlug(Builder $builder, string $slug) : Builder
-    {
-        return $builder->where(self::slugKey(), "=", $slug);
     }
 }

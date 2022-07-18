@@ -1,11 +1,7 @@
 <?php
 
-namespace Ludo237\EloquentTraits;
+namespace Ludo237\Traits;
 
-/**
- * Trait ExposeTableProperties
- * @package Ludo237\EloquentTraits
- */
 trait ExposeTableProperties
 {
     /**

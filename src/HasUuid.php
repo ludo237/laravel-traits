@@ -1,18 +1,11 @@
 <?php
 
-namespace Ludo237\EloquentTraits;
+namespace Ludo237\Traits;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 
-/**
- * Trait HasUuid
- *
- * @method static self|Builder whereUuid(string $uuid)
- * @method static self|Builder orWhereUuid(string $uuid)
- * @package Ludo237\EloquentTraits
- */
 trait HasUuid
 {
     /**
@@ -42,38 +35,14 @@ trait HasUuid
      * of masking. NOT SUITABLE FOR FETCHING DATA.
      * You should use this only to display a short version of the UUID
      *
-     * @return string
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    public function getShortUuidAttribute() : string
+    public function shortUuid() : Attribute
     {
-        $uuidPieces = explode("-", $this->uuid);
+        $uuid = $this->getAttributeValue(self::uuidField());
         
-        return end($uuidPieces);
-    }
-    
-    /**
-     * Simple query scope to filter a model by the given uuid
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param string $uuid
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeWhereUuid(Builder $builder, string $uuid) : Builder
-    {
-        return $builder->where(self::uuidField(), "=", $uuid);
-    }
-
-    /**
-     * Simple query scope to filter a model by the given uuid
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param string $uuid
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeOrWhereUuid(Builder $builder, string $uuid) : Builder
-    {
-        return $builder->orWhere(self::uuidField(), "=", $uuid);
+        return Attribute::make(
+            get: fn() => substr($uuid, strrpos($uuid, "-") + 1)
+        );
     }
 }

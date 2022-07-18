@@ -37,4 +37,12 @@
     <env name="SESSION_DRIVER" value="array"/>
     <env name="QUEUE_DRIVER" value="sync"/>
   </php>
+  <logging>
+    <junit outputFile="./reports/phpunit/coverage/junit.xml"/>
+    <teamcity outputFile="./reports/phpunit/coverage/teamcity.txt"/>
+    <testdoxHtml outputFile="./reports/phpunit/coverage/testdox.html"/>
+    <testdoxText outputFile="./reports/phpunit/coverage/testdox.txt"/>
+    <testdoxXml outputFile="./reports/phpunit/coverage/testdox.xml"/>
+    <text outputFile="./reports/phpunit/coverage/coverage.txt"/>
+  </logging>
 </phpunit>

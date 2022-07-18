@@ -5,3 +5,4 @@ composer.phar
 .env*
 .vscode
 .phpunit.result.cache
+reports

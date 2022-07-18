@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: laravel-eloquent-traits
-    container_name: let
+    image: laravel-traits
+    container_name: laratraits
     restart: on-failure
     working_dir: /var/www/
     volumes:

@@ -1,14 +1,11 @@
 <?php
 
-namespace Ludo237\EloquentTraits;
+namespace Ludo237\Traits;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-/**
- * Trait InteractsWithApi
- * @package Ludo237\EloquentTraits
- */
 trait InteractsWithApi
 {
     /**
@@ -36,21 +33,16 @@ trait InteractsWithApi
     }
     
     /**
-     * Save the api key in a secure way inside the application
+     * Accessor and Mutator for API key field
      *
-     * @param string $value
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    public function setApiKeyAttribute(string $value) : void
+    public function apiKey() : Attribute
     {
-        $this->attributes[self::apiField()] = encrypt($value);
-    }
-    
-    /**
-     * @return string
-     */
-    public function getApiKeyAttribute() : string
-    {
-        return decrypt($this->attributes[self::apiField()]);
+        return Attribute::make(
+            get: fn(string $value, array $attributes) => decrypt($attributes[self::apiField()]),
+            set: fn(string $value, array $attributes) => $attributes[self::apiField()] = encrypt($value)
+        );
     }
     
     /**
