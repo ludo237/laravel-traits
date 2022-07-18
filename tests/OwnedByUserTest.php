@@ -1,24 +1,19 @@
 <?php
 
-namespace Ludo237\EloquentTraits\Tests;
+namespace Ludo237\Traits\Tests;
 
-use Ludo237\EloquentTraits\Tests\Stubs\Post;
-use Ludo237\EloquentTraits\Tests\Stubs\User;
+use Ludo237\Traits\Tests\Stubs\PostStub;
+use Ludo237\Traits\Tests\Stubs\UserStub;
 
-/**
- * Class OwnedByUserTest
- * @package \Ludo237\EloquentTraits\Tests;
- */
 class OwnedByUserTest extends TestCase
 {
-    /** @var \Ludo237\EloquentTraits\Tests\Stubs\User */
-    private $user;
+    private UserStub $user;
     
     protected function setUp() : void
     {
         parent::setUp();
         
-        $this->user = User::query()->create([
+        $this->user = UserStub::query()->create([
             "uuid" => "123aa-bb456",
             "name" => "Foo Bar",
             "slug" => "foo.bar.1",
@@ -28,46 +23,46 @@ class OwnedByUserTest extends TestCase
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\OwnedByUser::ownerField
+     * @covers \Ludo237\Traits\OwnedByUser::ownerField
      */
     public function it_returns_the_right_owner_field()
     {
-        $this->assertEquals("id", Post::ownerField());
+        $this->assertEquals("id", PostStub::ownerField());
     }
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\OwnedByUser::foreignOwnerField
+     * @covers \Ludo237\Traits\OwnedByUser::foreignOwnerField
      */
     public function it_returns_the_right_foreign_owner_field()
     {
-        $this->assertEquals("user_id", Post::foreignOwnerField());
+        $this->assertEquals("user_id", PostStub::foreignOwnerField());
     }
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\OwnedByUser::isOwned
-     * @covers \Ludo237\EloquentTraits\OwnedByUser::isNotOwned
-     * @covers \Ludo237\EloquentTraits\OwnedByUser::isOwnedBy
-     * @covers \Ludo237\EloquentTraits\OwnedByUser::isNotOwnedBy
-     * @covers \Ludo237\EloquentTraits\OwnedByUser::isOwnedByUserId
-     * @covers \Ludo237\EloquentTraits\OwnedByUser::isNotOwnedByUserId
+     * @covers \Ludo237\Traits\OwnedByUser::isOwned
+     * @covers \Ludo237\Traits\OwnedByUser::isNotOwned
+     * @covers \Ludo237\Traits\OwnedByUser::isOwnedBy
+     * @covers \Ludo237\Traits\OwnedByUser::isNotOwnedBy
+     * @covers \Ludo237\Traits\OwnedByUser::isOwnedByUserId
+     * @covers \Ludo237\Traits\OwnedByUser::isNotOwnedByUserId
      */
     public function it_can_check_if_it_is_owned()
     {
-        $post = Post::query()->create();
-    
-        $anotherPost = Post::query()->create([
-            "user_id" => $this->user->id,
+        $post = PostStub::query()->create();
+        
+        $anotherPost = PostStub::query()->create([
+            "user_id" => $this->user->getKey(),
         ]);
-    
+        
         $this->assertFalse($post->isOwned());
         $this->assertTrue($post->isNotOwned());
         $this->assertFalse($post->isOwnedBy($this->user));
         $this->assertTrue($post->isNotOwnedBy($this->user));
         $this->assertFalse($post->isOwnedByUserId($this->user->getKey()));
         $this->assertTrue($post->isNotOwnedByUserId($this->user->getKey()));
-    
+        
         $this->assertTrue($anotherPost->isOwned());
         $this->assertFalse($anotherPost->isNotOwned());
         $this->assertTrue($anotherPost->isOwnedBy($this->user));
@@ -78,13 +73,13 @@ class OwnedByUserTest extends TestCase
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\OwnedByUser::isNotOwned
+     * @covers \Ludo237\Traits\OwnedByUser::isNotOwned
      */
     public function it_can_check_if_it_is_not_owned()
     {
-        $post = Post::query()->create();
-        $anotherPost = Post::query()->create([
-            "user_id" => $this->user->id,
+        $post = PostStub::query()->create();
+        $anotherPost = PostStub::query()->create([
+            "user_id" => $this->user->getKey(),
         ]);
         
         $this->assertTrue($post->isNotOwned());
@@ -93,87 +88,33 @@ class OwnedByUserTest extends TestCase
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\OwnedByUser::scopeOfUser
-     */
-    public function it_can_be_scoped_by_a_given_user()
-    {
-        $postOfUser = Post::query()->create([
-            "user_id" => $this->user->id,
-        ]);
-        $anotherPost = Post::query()->create();
-        
-        $posts = Post::ofUser($this->user)->get();
-        
-        $this->assertFalse($posts->contains("id", $anotherPost->id));
-        $this->assertTrue($posts->contains("id", $postOfUser->id));
-    }
-    
-    /**
-     * @test
-     * @covers \Ludo237\EloquentTraits\OwnedByUser::scopeOfUserId
-     */
-    public function it_can_be_scoped_by_a_given_user_id()
-    {
-        $postOfUser = Post::query()->create([
-            "user_id" => $this->user->id,
-        ]);
-        $anotherPost = Post::query()->create();
-        
-        $posts = Post::ofUserId($this->user->id)->get();
-        
-        $this->assertFalse($posts->contains("id", $anotherPost->id));
-        $this->assertTrue($posts->contains("id", $postOfUser->id));
-    }
-    
-    /**
-     * @test
-     * @covers \Ludo237\EloquentTraits\OwnedByUser::scopeOfAuthenticatedUser
-     */
-    public function it_can_be_scoped_by_the_current_authenticated_user()
-    {
-        $this->actingAs($this->user);
-        
-        $postOfUser = Post::query()->create([
-            "user_id" => $this->user->id,
-        ]);
-        $anotherPost = Post::query()->create();
-        
-        $posts = Post::ofAuthenticatedUser()->get();
-        
-        $this->assertFalse($posts->contains("id", $anotherPost->id));
-        $this->assertTrue($posts->contains("id", $postOfUser->id));
-    }
-    
-    /**
-     * @test
-     * @covers \Ludo237\EloquentTraits\OwnedByUser::owner
-     * @covers \Ludo237\EloquentTraits\OwnedByUser::user
-     */
-    public function it_inject_the_belongs_to_user_relationship()
-    {
-        $post = Post::query()->create([
-            "user_id" => $this->user->id,
-        ]);
-        
-        $this->assertInstanceOf(User::class, $post->user);
-        $this->assertEquals($post->user_id, $post->user->id);
-        
-        $post = Post::query()->create();
-        
-        $this->assertNull($post->user);
-    }
-    
-    /**
-     * @test
-     * @covers \Ludo237\EloquentTraits\OwnedByUser::setUserAttribute
+     * @covers \Ludo237\Traits\OwnedByUser::owner
      */
     public function user_can_be_set_through_a_convenient_mutator()
     {
-        /** @var \Ludo237\EloquentTraits\Tests\Stubs\Post $post */
-        $post = Post::query()->create();
-        $post->user = $this->user;
+        /** @var \Ludo237\Traits\Tests\Stubs\PostStub $post */
+        $post = PostStub::query()->create();
+        $post->owner = $this->user;
         
-        $this->assertEquals($this->user->id, $post->user_id);
-        $this->assertEquals($this->user->id, $post->user->id);
+        $this->assertEquals($this->user->getKey(), $post->getAttributeValue("user_id"));
+        $this->assertEquals($this->user->getKey(), $post->owner->getKey());
+    }
+    
+    /**
+     * @test
+     * @covers \Ludo237\Traits\OwnedByUser::user
+     */
+    public function it_inject_the_belongs_to_user_relationship()
+    {
+        $post = PostStub::query()->create([
+            "user_id" => $this->user->getKey(),
+        ]);
+        
+        $this->assertInstanceOf(UserStub::class, $post->user);
+        $this->assertEquals($post->getAttributeValue("user_id"), $post->user->getKey());
+        
+        $post = PostStub::query()->create();
+        
+        $this->assertNull($post->user);
     }
 }

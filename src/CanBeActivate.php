@@ -1,16 +1,9 @@
 <?php
 
-namespace Ludo237\EloquentTraits;
+namespace Ludo237\Traits;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Date;
 
-/**
- * Trait CanBeActivate
- * @method static self|Builder activated()
- * @method static self|Builder notActivated()
- * @package Ludo237\EloquentTraits
- */
 trait CanBeActivate
 {
     /**
@@ -23,7 +16,7 @@ trait CanBeActivate
     {
         return "activated_at";
     }
-
+    
     /**
      * Check if the current model is active
      *
@@ -33,7 +26,7 @@ trait CanBeActivate
     {
         return !is_null($this->getAttributeValue(self::activateAtField()));
     }
-
+    
     /**
      * Check if the current model is not active
      *
@@ -43,7 +36,7 @@ trait CanBeActivate
     {
         return !$this->isActive();
     }
-
+    
     /**
      * Activate a model
      *
@@ -55,7 +48,7 @@ trait CanBeActivate
             self::activateAtField() => Date::today(),
         ]);
     }
-
+    
     /**
      * Deactivate a model
      *
@@ -66,29 +59,5 @@ trait CanBeActivate
         $this->update([
             self::activateAtField() => null,
         ]);
-    }
-
-    /**
-     * Return only the active entities
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeActive(Builder $builder) : Builder
-    {
-        return $builder->whereNotNull(self::activateAtField());
-    }
-
-    /**
-     * Return only the not active entities
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeNotActive(Builder $builder) : Builder
-    {
-        return $builder->whereNull(self::activateAtField());
     }
 }

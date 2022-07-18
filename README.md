@@ -1,9 +1,9 @@
-[![pipeline status](https://gitlab.com/ludo237/laravel-eloquent-traits/badges/master/pipeline.svg)](https://gitlab.com/ludo237/laravel-eloquent-traits/commits/master)
-[![coverage report](https://gitlab.com/ludo237/laravel-eloquent-traits/badges/master/coverage.svg)](https://gitlab.com/ludo237/laravel-eloquent-traits/commits/master)
+[![pipeline status](https://gitlab.com/ludo237/laravel-traits/badges/master/pipeline.svg)](https://gitlab.com/ludo237/laravel-traits/commits/master)
+[![coverage report](https://gitlab.com/ludo237/laravel-traits/badges/master/coverage.svg)](https://gitlab.com/ludo237/laravel-traits/commits/master)
 
-# Laravel Eloquent Traits
+# Laravel Traits
 
-A set of useful traits for Eloquent ORM.
+A set of useful traits for Laravel.
 
 ## Why
 
@@ -15,7 +15,7 @@ In PHP A trait is a a mechanism for code reuse in single inheritance languages s
 
 ## How to use this package
 
-EZPZ: Grab it from composer `composer require ludo237/laravel-eloquent-traits` and it's done. Now you can use the traits inside your eloquent models
+EZPZ: Grab it from composer `composer require ludo237/laravel-traits` and it's done. Now you can use the traits inside your eloquent models or wherever you needs them
 
 ## What is included
 
@@ -28,6 +28,7 @@ With time things can change, but for v1.x the basic traits will be:
 - `HasUuid` like HasSlug but for UUID.
 - `InteractsWithApi` automatically set the api_key for the current model following Laravel standards.
 - `OwnedByUser` Automatically set the current model as owned by the User model
+- `Benchmarkable` Start/Stop a timer to benchmark your Artisan Commands
 
 ## How to Contribute
 

@@ -1,17 +1,10 @@
 <?php
 
-namespace Ludo237\EloquentTraits;
+namespace Ludo237\Traits;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Date;
 
-/**
- * Trait Bannable
- * @method static self|Builder banned()
- * @method static self|Builder notBanned()
- * @package Ludo237\EloquentTraits
- */
 trait Bannable
 {
     /**
@@ -53,7 +46,7 @@ trait Bannable
      * Return the opposite of isBanned
      *
      * @return bool
-     * @see \Ludo237\EloquentTraits\Bannable::isBanned()
+     * @see \Ludo237\Traits\Bannable::isBanned()
      */
     public function isNotBanned() : bool
     {
@@ -158,29 +151,5 @@ trait Bannable
         $this->update([
             self::banField() => null,
         ]);
-    }
-    
-    /**
-     * Return only the banned entities
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeBanned(Builder $builder) : Builder
-    {
-        return $builder->whereNotNull(self::banField());
-    }
-    
-    /**
-     * Return only the unbanned entities
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeNotBanned(Builder $builder) : Builder
-    {
-        return $builder->whereNull(self::banField());
     }
 }

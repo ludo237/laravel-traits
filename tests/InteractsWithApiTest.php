@@ -1,44 +1,39 @@
 <?php
 
-namespace Ludo237\EloquentTraits\Tests;
+namespace Ludo237\Traits\Tests;
 
-use Ludo237\EloquentTraits\Tests\Stubs\User;
+use Ludo237\Traits\Tests\Stubs\UserStub;
 
-/**
- * Class InteractsWithApiTest
- * @group EntitiesTrait
- * @package Ludo237\EloquentTraits\Tests
- */
 class InteractsWithApiTest extends TestCase
 {
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\InteractsWithApi::apiField
+     * @covers \Ludo237\Traits\InteractsWithApi::apiField
      */
     public function it_returns_the_right_api_field()
     {
-        $this->assertEquals("api_key", User::apiField());
+        $this->assertEquals("api_key", UserStub::apiField());
     }
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\InteractsWithApi::bootInteractsWithApi
+     * @covers \Ludo237\Traits\InteractsWithApi::bootInteractsWithApi
      */
     public function an_api_key_be_assigned_on_creating()
     {
         // The merge is necessary since password is an hidden attribute
-        $user = User::query()->create(["name" => "foo"]);
+        $user = UserStub::query()->create(["name" => "foo"]);
         
         $this->assertNotNull($user->api_key);
     }
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\InteractsWithApi::setApiKeyAttribute
+     * @covers \Ludo237\Traits\InteractsWithApi::apiKey
      */
     public function api_key_will_be_encrypted_by_default()
     {
-        $user = User::query()->create(["name" => "foo"]);
+        $user = UserStub::query()->create(["name" => "foo"]);
         
         $rawApi = $user->getAttributes()["api_key"];
         
@@ -47,11 +42,11 @@ class InteractsWithApiTest extends TestCase
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\InteractsWithApi::getApiKeyAttribute
+     * @covers \Ludo237\Traits\InteractsWithApi::apiKey
      */
     public function api_key_will_be_decrypted_by_default()
     {
-        $user = User::query()->create(["name" => "foo"]);
+        $user = UserStub::query()->create(["name" => "foo"]);
         
         $rawApi = $user->getAttribute("api_key");
         
@@ -60,16 +55,14 @@ class InteractsWithApiTest extends TestCase
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\InteractsWithApi::hasApiKey
-     * @covers \Ludo237\EloquentTraits\InteractsWithApi::doesNotHaveApiKey
+     * @covers \Ludo237\Traits\InteractsWithApi::hasApiKey
+     * @covers \Ludo237\Traits\InteractsWithApi::doesNotHaveApiKey
      */
     public function it_can_check_if_model_has_an_api_key()
     {
-        $user = User::query()->create(["name" => "foo"]);
+        $user = UserStub::query()->create(["name" => "foo"]);
         
         $this->assertTrue($user->doesNotHaveApiKey("foobar"));
         $this->assertTrue($user->hasApiKey($user->api_key));
     }
-    
-
 }

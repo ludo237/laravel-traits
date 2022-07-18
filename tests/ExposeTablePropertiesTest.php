@@ -1,51 +1,47 @@
 <?php
 
-namespace Ludo237\EloquentTraits\Tests;
+namespace Ludo237\Traits\Tests;
 
-use Ludo237\EloquentTraits\Tests\Stubs\User;
+use Ludo237\Traits\Tests\Stubs\UserStub;
 
-/**
- * Class ExposeTablePropertiesTest
- * @package Ludo237\EloquentTraits\Tests
- */
 class ExposeTablePropertiesTest extends TestCase
 {
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\ExposeTableProperties::tableName
+     * @covers \Ludo237\Traits\ExposeTableProperties::tableName
      */
     public function it_displays_the_table_name()
     {
-        $this->assertEquals("users", User::tableName());
+        $this->assertEquals("users", UserStub::tableName());
     }
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\ExposeTableProperties::primaryKeyName
+     * @covers \Ludo237\Traits\ExposeTableProperties::primaryKeyName
      */
     public function it_displays_the_primary_key_name()
     {
-        $this->assertEquals("id", User::primaryKeyName());
+        $this->assertEquals("id", UserStub::primaryKeyName());
     }
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\ExposeTableProperties::primaryKeyType
+     * @covers \Ludo237\Traits\ExposeTableProperties::primaryKeyType
      */
     public function it_displays_the_primary_key_type()
     {
-        $this->assertEquals("int", User::primaryKeyType());
+        $this->assertEquals("int", UserStub::primaryKeyType());
     }
     
     /**
      * @test
-     * @covers \Ludo237\EloquentTraits\ExposeTableProperties::primaryKey
+     * @covers \Ludo237\Traits\ExposeTableProperties::primaryKey
      */
     public function it_returns_the_complete_set_for_primary_key()
     {
-        $this->assertIsArray(User::primaryKey());
+        $this->assertIsArray(UserStub::primaryKey());
         
-        $this->assertEquals("id", User::primaryKey()["name"]);
-        $this->assertEquals("int", User::primaryKey()["type"]);
+        $this->assertEquals("id", UserStub::primaryKey()["name"]);
+        $this->assertEquals("int", UserStub::primaryKey()["type"]);
     }
 }

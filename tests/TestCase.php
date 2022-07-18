@@ -1,14 +1,10 @@
 <?php
 
-namespace Ludo237\EloquentTraits\Tests;
+namespace Ludo237\Traits\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
 
-/**
- * TestCase
- * @package Ludo237\EloquentTraits\Tests
- */
 class TestCase extends \Orchestra\Testbench\TestCase
 {
     use RefreshDatabase;
@@ -19,7 +15,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
         
         $this->loadMigrationsFrom(__DIR__ . "/database/migrations/");
     }
-    
     
     /** @test */
     public function it_runs_the_migrations()
