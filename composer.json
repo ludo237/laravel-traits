@@ -17,11 +17,11 @@
   ],
   "require": {
     "php": "^8.0",
-    "illuminate/support": "8.x|9.x"
+    "illuminate/support": "8.x|9.x|10.x"
   },
   "require-dev": {
     "fakerphp/faker": "^1.19",
-    "laravel/framework": "8.x|9.x",
+    "laravel/framework": "8.x|9.x|10.x",
     "mockery/mockery": "^1.5",
     "nunomaduro/larastan": "^2.1",
     "orchestra/testbench": "^7.6",
