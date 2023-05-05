@@ -15,7 +15,7 @@ In PHP A trait is a a mechanism for code reuse in single inheritance languages s
 
 ## How to use this package
 
-EZPZ: Grab it from composer `composer require ludo237/laravel-traits` and it's done. Now you can use the traits inside your eloquent models or wherever you needs them
+Simple enough, just grab it from composer `composer require ludo237/laravel-traits` and it's done. Now you can use the traits inside your eloquent models or wherever you needs them
 
 ## What is included
 
