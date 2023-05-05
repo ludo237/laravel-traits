@@ -6,8 +6,6 @@ trait ExposeTableProperties
 {
     /**
      * Return the table name of the current eloquent model
-     *
-     * @return string
      */
     public static function tableName() : string
     {
@@ -16,8 +14,6 @@ trait ExposeTableProperties
     
     /**
      * Return the primary key name of the current eloquent model
-     *
-     * @return string
      */
     public static function primaryKeyName() : string
     {
@@ -26,8 +22,6 @@ trait ExposeTableProperties
     
     /**
      * Return the primary key type of the current eloquent model
-     *
-     * @return string
      */
     public static function primaryKeyType() : string
     {
@@ -36,8 +30,6 @@ trait ExposeTableProperties
     
     /**
      * Get the primary key properties with an array
-     *
-     * @return array
      */
     public static function primaryKey() : array
     {

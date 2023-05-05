@@ -10,8 +10,6 @@ trait InteractsWithApi
 {
     /**
      * Defines the Api field for the model.
-     *
-     * @return string
      */
     public static function apiField() : string
     {
@@ -20,8 +18,6 @@ trait InteractsWithApi
     
     /**
      * Automatically boot this trait thanks to eloquent
-     *
-     * @see \Illuminate\Database\Eloquent\Model::bootTraits()
      */
     public static function bootInteractsWithApi() : void
     {
@@ -32,11 +28,6 @@ trait InteractsWithApi
         });
     }
     
-    /**
-     * Accessor and Mutator for API key field
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
     public function apiKey() : Attribute
     {
         return Attribute::make(
@@ -45,21 +36,11 @@ trait InteractsWithApi
         );
     }
     
-    /**
-     * @param string $apiKey
-     *
-     * @return bool
-     */
     public function hasApiKey(string $apiKey) : bool
     {
         return $this->getAttributeValue(self::apiField()) === $apiKey;
     }
     
-    /**
-     * @param string $apiKey
-     *
-     * @return bool
-     */
     public function doesNotHaveApiKey(string $apiKey) : bool
     {
         return !$this->hasApiKey($apiKey);

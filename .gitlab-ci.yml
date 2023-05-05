@@ -1,13 +1,7 @@
 include:
   - template: Dependency-Scanning.gitlab-ci.yml
 
-image: registry.gitlab.com/6go-srl/docker/php:8.1
-
-# Setup common stages
-stages:
-  - build
-  - check
-  - test
+image: registry.gitlab.com/6go-srl/docker/php:8.2
 
 cache:
   key: "${CI_COMMIT_REF_SLUG}"
@@ -19,7 +13,7 @@ cache:
 
 # Start by creating the vendor folder for the stages
 composer:
-  stage: build
+  needs: [ ]
   artifacts:
     expire_in: 1 day
     paths:
@@ -30,7 +24,7 @@ composer:
 
 # Check Code Style
 codestyle:
-  stage: check
+  needs: [ ]
   image: lorisleiva/laravel-docker
   environment:
     name: testing
@@ -47,7 +41,6 @@ codestyle:
 
 # Run analysis for standards
 code_quality:
-  stage: check
   needs: ["composer"]
   dependencies:
     - composer
@@ -56,7 +49,7 @@ code_quality:
 
 # Check for any copy-paste code in the codebase
 phpcpd:
-  stage: check
+  needs: [ ]
   environment:
     name: testing
   before_script:
@@ -66,7 +59,6 @@ phpcpd:
 
 # Security check on the whole dependencies tree
 security-advisories:
-  stage: check
   environment:
     name: testing
   needs: []
@@ -87,7 +79,6 @@ security-advisories:
 
 # Testing time
 unit:
-  stage: test
   environment:
     name: testing
   needs: ["composer"]
