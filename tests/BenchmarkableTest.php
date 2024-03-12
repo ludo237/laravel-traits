@@ -8,6 +8,7 @@ class BenchmarkableTest extends TestCase
 {
     /**
      * @test
+     *
      * @covers \Ludo237\Traits\Benchmarkable::startTime
      * @covers \Ludo237\Traits\Benchmarkable::endTime
      * @covers \Ludo237\Traits\Benchmarkable::getEndTime
@@ -16,7 +17,7 @@ class BenchmarkableTest extends TestCase
     {
         $command = new CommandStub();
         $command->handle();
-        
+
         // We need to account for small perf issues
         $this->assertGreaterThanOrEqual(5.0, $command->total);
     }

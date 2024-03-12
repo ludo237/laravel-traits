@@ -4,14 +4,11 @@ include:
 image: registry.gitlab.com/6go-srl/docker/php:8.2
 
 cache:
-  key: "${CI_COMMIT_REF_SLUG}"
+  key: $CI_COMMIT_REF_SLUG
   paths:
-    - vendor/
     - .composer-cache/
-    - phpcpd.phar
     - .phpunit.result.cache
 
-# Start by creating the vendor folder for the stages
 composer:
   needs: [ ]
   artifacts:
@@ -20,14 +17,12 @@ composer:
       - vendor/
   script:
     - composer config -g cache-dir "$(pwd)/.composer-cache"
-    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts -o
+    - composer update --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts -o
 
-# Check Code Style
-codestyle:
-  needs: [ ]
-  image: lorisleiva/laravel-docker
-  environment:
-    name: testing
+pint:
+  needs:
+    - job: composer
+      artifacts: true
   artifacts:
     paths:
       - reports
@@ -37,53 +32,31 @@ codestyle:
   before_script:
     - mkdir -p ./reports
   script:
-    - phpcs --standard=PSR2 --extensions=php --report=full --report-file=./reports/$CI_COMMIT_SHA.txt -v src
+    - ./vendor/bin/pint
 
-# Run analysis for standards
-code_quality:
-  needs: ["composer"]
-  dependencies:
-    - composer
+phpstan:
+  needs:
+    - job: composer
+      artifacts: true
   script:
     - ./vendor/bin/phpstan analyse --error-format gitlab
 
-# Check for any copy-paste code in the codebase
 phpcpd:
   needs: [ ]
-  environment:
-    name: testing
   before_script:
     - test -f phpcpd.phar || curl -L https://phar.phpunit.de/phpcpd.phar -o phpcpd.phar
   script:
     - php phpcpd.phar src/ --min-lines=50
 
-# Security check on the whole dependencies tree
-security-advisories:
-  environment:
-    name: testing
+audit:
   needs: []
-  artifacts:
-    paths:
-      - reports
-    expire_in: 1 days
-    when: on_failure
-  before_script:
-    - mkdir -p ./reports
-    - apk add bash
-    - wget https://get.symfony.com/cli/installer -O - | bash
-    - mv ~/.symfony/bin/symfony /usr/local/bin/symfony
   script:
-    - symfony security:check
-  only:
-    - tags
+    - composer audit
 
-# Testing time
-unit:
-  environment:
-    name: testing
-  needs: ["composer"]
-  dependencies:
-    - composer
+pest:
+  needs:
+    - job: composer
+      artifacts: true
   artifacts:
     paths:
       - reports

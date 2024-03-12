@@ -8,21 +8,21 @@ use Ludo237\Traits\Benchmarkable;
 class CommandStub extends Command
 {
     use Benchmarkable;
-    
-    protected $signature = "fake:command";
-    
+
+    protected $signature = 'fake:command';
+
     public float $total = 0;
-    
-    public function handle() : int
+
+    public function handle(): int
     {
         $this->startTime();
-        
+
         sleep(5);
-        
+
         $this->endTime();
-        
+
         $this->total = floatval($this->getEndTime());
-        
+
         return 1;
     }
 }

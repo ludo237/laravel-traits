@@ -10,44 +10,44 @@ trait HasSlug
     /**
      * Database column name used to create the slug
      */
-    public static function sluggableKey() : string
+    public static function sluggableKey(): string
     {
-        return "name";
+        return 'name';
     }
-    
+
     /**
      * Separator for multi words slug
      */
-    public static function separator() : string
+    public static function separator(): string
     {
-        return ".";
+        return '.';
     }
-    
+
     /**
      * Database column name used to store the slug value
      */
-    public static function slugKey() : string
+    public static function slugKey(): string
     {
-        return "slug";
+        return 'slug';
     }
-    
-    private static function generateSlug(Model $model) : void
+
+    private static function generateSlug(Model $model): void
     {
         $value = $model->getAttributeValue(self::sluggableKey());
         $randomSalt = Str::random(8);
         $slug = Str::slug("$value $randomSalt", self::separator());
-        
+
         $model->setAttribute(self::slugKey(), $slug);
     }
-    
-    public static function bootHasSlug() : void
+
+    public static function bootHasSlug(): void
     {
         static::creating(function (Model $model) {
             if (empty($model->getAttributeValue(self::slugKey()))) {
                 self::generateSlug($model);
             }
         });
-        
+
         static::updating(function (Model $model) {
             if (empty($model->getAttributeValue(self::slugKey()))) {
                 self::generateSlug($model);
