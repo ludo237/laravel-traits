@@ -10,29 +10,29 @@ trait CanBeActivate
      * Defines the activated at field for the model.
      * You can overwrite this field
      */
-    public static function activateAtField() : string
+    public static function activateAtField(): string
     {
-        return "activated_at";
+        return 'activated_at';
     }
-    
-    public function isActive() : bool
+
+    public function isActive(): bool
     {
-        return !is_null($this->getAttributeValue(self::activateAtField()));
+        return ! is_null($this->getAttributeValue(self::activateAtField()));
     }
-    
-    public function isNotActive() : bool
+
+    public function isNotActive(): bool
     {
-        return !$this->isActive();
+        return ! $this->isActive();
     }
-    
-    public function activate() : void
+
+    public function activate(): void
     {
         $this->update([
             self::activateAtField() => Date::today(),
         ]);
     }
-    
-    public function deactivate() : void
+
+    public function deactivate(): void
     {
         $this->update([
             self::activateAtField() => null,

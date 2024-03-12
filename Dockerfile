@@ -1,4 +1,4 @@
-FROM php:8.2-cli-alpine
+FROM registry.gitlab.com/6go/dx/docker/php:8.2
 
 # Install dev dependencies
 RUN apk add --no-cache --virtual .build-deps \

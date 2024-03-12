@@ -4,5 +4,6 @@ composer.phar
 .idea
 .env*
 .vscode
-.phpunit.result.cache
+.phpunit.cache
 reports
+composer.lock
