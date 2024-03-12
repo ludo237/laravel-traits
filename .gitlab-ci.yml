@@ -1,7 +1,7 @@
 include:
   - template: Dependency-Scanning.gitlab-ci.yml
 
-image: registry.gitlab.com/6go-srl/docker/php:8.2
+image: registry.gitlab.com/6go/dx/docker/php:8.2
 
 cache:
   key: $CI_COMMIT_REF_SLUG
