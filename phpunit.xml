@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-        backupGlobals="false"
-        backupStaticAttributes="false"
-        bootstrap="vendor/autoload.php"
-        cacheResult="true"
-        colors="false"
-        convertErrorsToExceptions="true"
-        convertNoticesToExceptions="true"
-        convertWarningsToExceptions="true"
-        forceCoversAnnotation="false"
-        processIsolation="false"
-        stopOnFailure="true"
-        stopOnError="true"
-        stopOnIncomplete="false"
-        stopOnSkipped="false"
-        stopOnRisky="false"
-        verbose="false">
-  <coverage>
-    <include>
-      <directory>config/</directory>
-      <directory>src/</directory>
-    </include>
-  </coverage>
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         backupGlobals="false" bootstrap="vendor/autoload.php"
+         cacheResult="true"
+         colors="false"
+         processIsolation="false"
+         stopOnFailure="true"
+         stopOnError="true"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         stopOnRisky="false"
+         cacheDirectory=".phpunit.cache"
+         backupStaticProperties="false"
+         requireCoverageMetadata="false"
+>
   <testsuites>
     <testsuite name="Package">
       <directory suffix=".php">./tests/</directory>
@@ -42,7 +33,10 @@
     <teamcity outputFile="./reports/phpunit/coverage/teamcity.txt"/>
     <testdoxHtml outputFile="./reports/phpunit/coverage/testdox.html"/>
     <testdoxText outputFile="./reports/phpunit/coverage/testdox.txt"/>
-    <testdoxXml outputFile="./reports/phpunit/coverage/testdox.xml"/>
-    <text outputFile="./reports/phpunit/coverage/coverage.txt"/>
   </logging>
+  <source>
+    <include>
+      <directory>src/</directory>
+    </include>
+  </source>
 </phpunit>
