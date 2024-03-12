@@ -65,4 +65,4 @@ pest:
   before_script:
     - mkdir -p ./reports
   script:
-    - XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-text --colors=never
+    - XDEBUG_MODE=coverage ./vendor/bin/pest
