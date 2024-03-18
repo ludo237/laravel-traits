@@ -1,5 +1,4 @@
-[![pipeline status](https://gitlab.com/ludo237/laravel-traits/badges/master/pipeline.svg)](https://gitlab.com/ludo237/laravel-traits/commits/master)
-[![coverage report](https://gitlab.com/ludo237/laravel-traits/badges/master/coverage.svg)](https://gitlab.com/ludo237/laravel-traits/commits/master)
+> Project Archived. Please check https://gitlab.com/ludo237/laravel-toolbox
 
 # Laravel Traits
 
