@@ -1,5 +1,3 @@
-> Project Archived. Please check https://gitlab.com/ludo237/laravel-toolbox
-
 # Laravel Traits
 
 A set of useful traits for Laravel.
